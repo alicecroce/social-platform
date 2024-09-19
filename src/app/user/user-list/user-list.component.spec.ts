@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { UserListComponent } from './user-list.component';
 import { UserService } from '../user.service';
 import { of } from 'rxjs';
+import { By } from '@angular/platform-browser';
 
 describe('UserListComponent', () => {
   let component: UserListComponent;
@@ -32,10 +33,19 @@ describe('UserListComponent', () => {
   });
 
   it('should retriebe users from the UserService on init', ()=>{
-    // fixture.detectChanges();//rileva le modifiche che avvierà l'OnInit, l'hook sulla rete e aggiornerà tutti i binding
+    fixture.detectChanges();//rileva le modifiche che avvierà l'OnInit, l'hook sulla rete e aggiornerà tutti i binding
     expect(userServiceSpy).toHaveBeenCalled();
   })
 
     //TESTIAMO IL COMPONENTE: assicuriamoci che quando venga cliccato button, gli users facciano il refresh
+  it('should retrieve users from the UserService when the refresh button is clicked', ()=>{
+    fixture.detectChanges();
 
+    userServiceSpy.calls.reset();//chiedo di testare un refresh, non quelli precedenti, quindi "RESET le CALLS precedenti"
+
+    const button=fixture.debugElement.query(By.css('button'));
+    button.triggerEventHandler('click', null);//triggerEvent = simula l'evento per testarlo
+
+    expect(userServiceSpy).toHaveBeenCalled();
+  })
 });

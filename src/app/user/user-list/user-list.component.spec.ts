@@ -30,4 +30,12 @@ describe('UserListComponent', () => {
   it('should create', () => {//test unitario che si ASPETTA un valore vero (no undefined, no null) cioè che venga creato l nostro elenco utenti
     expect(component).toBeTruthy();
   });
+
+  it('should retriebe users from the UserService on init', ()=>{
+    // fixture.detectChanges();//rileva le modifiche che avvierà l'OnInit, l'hook sulla rete e aggiornerà tutti i binding
+    expect(userServiceSpy).toHaveBeenCalled();
+  })
+
+    //TESTIAMO IL COMPONENTE: assicuriamoci che quando venga cliccato button, gli users facciano il refresh
+
 });
